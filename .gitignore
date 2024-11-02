@@ -167,3 +167,5 @@ Cat_Pixels/
 *.zip
 .DS_Store
 .vs_code
+cat_env/
+*.ipynb
