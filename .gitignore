@@ -164,3 +164,4 @@ cython_debug/
 Cat+Mrow/
 Cat+Sleep
 Cat_Pixels/
+*.zip
