@@ -165,3 +165,5 @@ Cat+Mrow/
 Cat+Sleep
 Cat_Pixels/
 *.zip
+.DS_Store
+.vs_code
