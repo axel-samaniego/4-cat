@@ -41,11 +41,11 @@ def main():
         threshold = 128
         bw_img = (gray_img > threshold) * 255  # Binarize to black and white
 
-        # Convert back to Pygame surface
-        bw_surface = pygame.surfarray.make_surface(bw_img)
-        pil_img = Image.frombytes('L', (bw_surface.get_width(), bw_surface.get_height()), pygame.image.tostring(bw_surface, 'L', False))
+        # # Convert back to Pygame surface
+        # bw_surface = pygame.surfarray.make_surface(bw_img)
+        # pil_img = Image.frombytes('L', (bw_surface.get_width(), bw_surface.get_height()), pygame.image.tostring(bw_surface, 'L', False))
 
-        images.append(pil_img)
+        images.append(bw_img)
 
     print(f"loaded images: {len(images)}")
     
