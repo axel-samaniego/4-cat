@@ -43,8 +43,10 @@ def main():
 
         # Convert back to Pygame surface
         bw_surface = pygame.surfarray.make_surface(bw_img)
-        images.append(bw_surface)
-        
+        pil_img = Image.frombytes('L', (bw_surface.get_width(), bw_surface.get_height()), pygame.image.tostring(bw_surface, 'L', False))
+
+        images.append(pil_img)
+
     print(f"loaded images: {len(images)}")
     
     # Animation loop
