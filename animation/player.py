@@ -3,6 +3,8 @@ import time
 from glob import glob
 import os
 
+
+
 def main():
 
     cwd = os.getcwd()
@@ -11,11 +13,11 @@ def main():
     pygame.init()
 
     # Set up the screen
-    screen = pygame.display.set_mode((36, 36))  # Adjust to your display resolution
+    screen = pygame.display.set_mode((128, 64))  # Adjust to your display resolution
     # pygame.display.set_caption("Cat Animation")
 
     # Load images
-    images = [pygame.image.load(img) for img in sorted(glob(ani_folders[0] + "/*.png"))]
+    images = [pygame.image.load(img) for img in sorted(glob(cwd + "/animation/sitting_tail/" + "/*.bmp"))]
     print(f"loaded images: {images}")
     
     # Animation loop
@@ -27,9 +29,9 @@ def main():
                 running = False
         
         # Clear the screen with a background color
-        screen.fill((0, 0, 0))  # Black background
+        screen.fill((255, 255, 255))  # Black background
         # Display frame
-        screen.blit(images[frame], (0,0))
+        screen.blit(images[frame], (64 - 16,32))
         pygame.display.flip()
 
         # Update to the next frame
