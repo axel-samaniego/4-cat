@@ -6,6 +6,7 @@ from PIL import Image
 import adafruit_ssd1306
 import busio
 import board
+import numpy as np
 
 
 
@@ -30,11 +31,20 @@ def main():
     images = []
     for img_path in glob(cwd + "/animation/sitting_tail/" + "/*.bmp"):
         img = pygame.image.load(img_path)  # Load the image with pygame
-        # img = pygame.transform.scale(img, (128, 64))  # Scale to OLED size if needed
-        # Convert to 1-bit monochrome using Pillow (PIL)
+        # Convert Pygame surface to NumPy array
+        img_array = pygame.surfarray.array3d(img)  # Get the pixel array
+
+        # Convert to grayscale (average of R, G, B values)
+        gray_img = np.mean(img_array, axis=2).astype(np.uint8)  # Convert to grayscale (1 channel)
+
+        # Convert to 1-bit using a threshold (e.g., 128)
+        threshold = 128
+        bw_img = (gray_img > threshold) * 255  # Binarize to black and white
+
+        # Convert back to Pygame surface
+        bw_surface = pygame.surfarray.make_surface(bw_img)
+        images.append(bw_surface)
         
-        img_gray = img.convert('1')  # Convert to 1-bit grayscale
-        images.append(img_gray)
     print(f"loaded images: {len(images)}")
     
     # Animation loop
