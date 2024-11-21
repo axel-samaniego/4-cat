@@ -37,15 +37,9 @@ def main():
         # Convert to grayscale (average of R, G, B values)
         gray_img = np.mean(img_array, axis=2).astype(np.uint8)  # Convert to grayscale (1 channel)
 
-        # Convert to 1-bit using a threshold (e.g., 128)
-        threshold = 128
-        bw_img = (gray_img > threshold) * 255  # Binarize to black and white
+        im = Image.fromarray(gray_img)
 
-        # # Convert back to Pygame surface
-        # bw_surface = pygame.surfarray.make_surface(bw_img)
-        # pil_img = Image.frombytes('L', (bw_surface.get_width(), bw_surface.get_height()), pygame.image.tostring(bw_surface, 'L', False))
-
-        images.append(bw_img)
+        images.append(im)
 
     print(f"loaded images: {len(images)}")
     
