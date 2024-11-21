@@ -37,7 +37,7 @@ def main():
         # Convert to grayscale (average of R, G, B values)
         gray_img = np.mean(img_array, axis=2).astype(np.uint8)  # Convert to grayscale (1 channel)
 
-        im = Image.fromarray(gray_img)
+        im = Image.fromarray(gray_img, mode="1")
 
         images.append(im)
 
