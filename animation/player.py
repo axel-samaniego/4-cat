@@ -30,9 +30,11 @@ def main():
     images = []
     for img_path in glob(cwd + "/animation/sitting_tail/" + "/*.bmp"):
         img = pygame.image.load(img_path)  # Load the image with pygame
-        img = pygame.transform.scale(img, (128, 64))  # Scale to OLED size if needed
-        img_surface = pygame.surfarray.array3d(img)  # Convert to a 3D array
-        img_gray = Image.fromarray(img_surface).convert("1")  # Convert to 1-bit grayscale
+        # img = pygame.transform.scale(img, (128, 64))  # Scale to OLED size if needed
+        # Convert to 1-bit monochrome using Pillow (PIL)
+        img_surface = pygame.image.tostring(img, 'RGB')  # Convert pygame surface to RGB string
+        img_pil = Image.frombytes('RGB', (128, 64), img_surface)  # Create a PIL image
+        img_gray = img_pil.convert('1')  # Convert to 1-bit grayscale
         images.append(img_gray)
     print(f"loaded images: {len(images)}")
     
