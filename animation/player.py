@@ -29,20 +29,7 @@ def main():
     # Load images
     # images = [pygame.image.load(img) for img in sorted(glob(cwd + "/animation/sitting_tail/" + "/*.bmp"))]
     
-    images = []
-    for img_path in glob(cwd + "/animation/sitting_tail/" + "/*.bmp"):
-        img = pygame.image.load(img_path)  # Load the image with pygame
-        # Convert Pygame surface to NumPy array
-        bg = np.ones((64,128))*255
-        img_array = pygame.surfarray.array3d(img)  # Get the pixel array
-
-        # Convert to grayscale (average of R, G, B values)
-        gray_img = img_array[:, :, 0].copy().astype(np.uint8)  # Convert to grayscale (1 channel)
-        bg[32:64, 48:80] = gray_img
-
-        im = Image.fromarray(bg, mode="1")
-
-        images.append(im)
+    images = [Image.open(img_path).convert("1") for img_path in glob(cwd + "/animation/sitting_tail/" + "/*.bmp")]
 
     print(f"loaded images: {len(images)}")
     
