@@ -11,19 +11,11 @@ import numpy as np
 from controller import Controller
 
 def display_images(images, disp):
-    frame = 0
-    # Clear the display
-    disp.fill(0)
     
-    # Display the current frame
-    frame_image = images[frame]
-    disp.image(frame_image)
-    disp.show()
-
-    # Update to the next frame
-    frame = (frame + 1) % len(images)
-    time.sleep(0.1)  # Adjust for animation speed
-
+    for frame_image in images:
+        disp.fill(0)
+        disp.image(frame_image)
+        disp.show()
 
 
 def main():
