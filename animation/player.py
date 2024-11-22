@@ -82,34 +82,33 @@ def main():
     frame_delay = 0.1  # Time between frames
     last_frame_time = time.time()
 
-    try:
-        while running:    
-            # If the button is pressed down (transition from high to low)
-            # Check buttons and switch animation
-            if buttons["A"].value:  
-                pass
-            else:  # Button "A" pressed
-                if current_animation != "scared":
-                    current_animation = "scared"
-                    current_frame = 0  # Reset frame index
+    
+    while running:    
+        # If the button is pressed down (transition from high to low)
+        # Check buttons and switch animation
+        if buttons["A"].value:  
+            pass
+        else:  # Button "A" pressed
+            if current_animation != "scared":
+                current_animation = "scared"
+                current_frame = 0  # Reset frame index
 
-            # Get the current animation frames
-            images = img_paths[current_animation]
+        # Get the current animation frames
+        images = img_paths[current_animation]
 
-     
-            display_frame(images[current_frame], disp)
-            if (current_animation!="sitting_tail") and (current_frame >= len(images) - 1):
-                current_animation = "sitting_tail"
-                current_frame = 0
-            else:
-                current_frame = (current_frame + 1) % len(images)  # Loop frames
-            time.sleep(0.075)
-            
+    
+        display_frame(images[current_frame], disp)
+        if (current_animation!="sitting_tail") and (current_frame >= len(images) - 1):
+            current_animation = "sitting_tail"
+            current_frame = 0
+        else:
+            current_frame = (current_frame + 1) % len(images)  # Loop frames
+        time.sleep(0.075)
+        if not buttons["A"].value and not buttons["B"].value and not buttons["C"].value:
+            break
+    
+    disp.poweroff()
 
-
-    except KeyboardInterrupt:
-        print("exiting")
-        disp.poweroff()
 
 
 
