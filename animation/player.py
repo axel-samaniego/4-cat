@@ -84,12 +84,11 @@ def main():
     try:
         while running:    
             # If the button is pressed down (transition from high to low)
-            if not buttons["A"].value:
-                display_images(img_paths['sitting_lick'], disp)
+            if buttons["A"].value:
+                display_images(img_paths['sitting_tail'], disp)
             else:
                 display_images(img_paths['scared'], disp)
                     
-            time.sleep(0.1)  # Small delay to avoid flooding the console
     except KeyboardInterrupt:
         print("exiting")
         disp.poweroff()
