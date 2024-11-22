@@ -98,7 +98,7 @@ def main():
 
      
             display_frame(images[current_frame], disp)
-            if current_animation!="sitting_tail" and current_frame >= len(images) - 1:
+            if (current_animation!="sitting_tail") and (current_frame >= len(images) - 1):
                 current_animation = "sitting_tail"
                 current_frame = 0
             else:
