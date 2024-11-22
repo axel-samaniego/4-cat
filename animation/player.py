@@ -60,25 +60,34 @@ def main():
 
     # Load images
     # images = [pygame.image.load(img) for img in sorted(glob(cwd + "/animation/sitting_tail/" + "/*.bmp"))]
-    
-    sitting = [Image.open(img_path).convert("1") for img_path in glob(cwd + "/animation/sitting_tail/" + "/*.bmp")]
-    sitting.sort()
-    lick = [Image.open(img_path).convert("1") for img_path in glob(cwd + "/animation/sitting_lic/" + "/*.bmp")]
-    lick.sort()
+    folder_names = ['running',
+                    'attack',
+                    'sleeping',
+                    'sitting_lick',
+                    'scared',
+                    'paw_tap',
+                    'sitting_tail']
+    img_paths = {}
+    total_loaded = 0
+    for folder in folder_names:
+        images = glob(cwd + f"/animation/{folder}/*.bmp")
+        images.sort()
+        img_paths[folder] = [Image.open(img_path).convert("1") for img_path in images]
+        total_loaded += len(images)
+   
 
-    print(f"loaded images: {len(sitting + lick)}")
+    print(f"loaded images: {total_loaded}")
     
     # Animation loop
     running = True
-    previous_states = {name: button.value for name, button in buttons.items()}
 
     try:
         while running:    
             # If the button is pressed down (transition from high to low)
             if not buttons["A"].value:
-                display_images(lick, disp)
+                display_images(img_paths['sitting_lick'], disp)
             else:
-                display_images(sitting, disp)
+                display_images(img_paths['scared'], disp)
                     
             time.sleep(0.1)  # Small delay to avoid flooding the console
     except KeyboardInterrupt:
