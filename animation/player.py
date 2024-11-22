@@ -87,8 +87,7 @@ def main():
             # If the button is pressed down (transition from high to low)
             # Check buttons and switch animation
             if buttons["A"].value:  
-                if current_animation != "sitting_tail":
-                    current_animation = "sitting_tail"
+                pass
             else:  # Button "A" pressed
                 if current_animation != "scared":
                     current_animation = "scared"
@@ -97,13 +96,17 @@ def main():
             # Get the current animation frames
             images = img_paths[current_animation]
 
-            # Display one frame at a time
-            current_time = time.time()
-            if current_time - last_frame_time >= frame_delay:
-                display_frame(images[current_frame], disp)
+     
+            display_frame(images[current_frame], disp)
+            if current_animation!="sitting_tail" & current_frame >= len(images) - 1:
+                current_animation = "sitting_tail"
+                current_frame = 0
+            else:
                 current_frame = (current_frame + 1) % len(images)  # Loop frames
-                last_frame_time = current_time
-                    
+            time.sleep(0.075)
+            
+
+
     except KeyboardInterrupt:
         print("exiting")
         disp.poweroff()
