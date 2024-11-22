@@ -1,4 +1,3 @@
-import pygame
 import time
 from glob import glob
 import os
@@ -16,6 +15,12 @@ def display_images(images, disp):
         disp.fill(0)
         disp.image(frame_image)
         disp.show()
+        time.sleep(0.1)
+
+def display_frame(frame_image, disp):
+    disp.fill(0)
+    disp.image(frame_image)
+    disp.show()
 
 
 def main():
@@ -45,7 +50,6 @@ def main():
     cwd = os.getcwd()
     ani_folders = glob(cwd + "/animation/*")
     print(f"ani_folders {ani_folders}")
-    pygame.init()
 
     # Set up the screen
     # pygame.display.set_caption("Cat Animation")
@@ -72,14 +76,33 @@ def main():
     
     # Animation loop
     running = True
+    # Initialize state variables
+    current_animation = "sitting_tail"
+    current_frame = 0
+    frame_delay = 0.1  # Time between frames
+    last_frame_time = time.time()
 
     try:
         while running:    
             # If the button is pressed down (transition from high to low)
-            if buttons["A"].value:
-                display_images(img_paths['sitting_tail'], disp)
-            else:
-                display_images(img_paths['scared'], disp)
+            # Check buttons and switch animation
+            if buttons["A"].value:  
+                if current_animation != "sitting_tail":
+                    current_animation = "sitting_tail"
+            else:  # Button "A" pressed
+                if current_animation != "scared":
+                    current_animation = "scared"
+                    current_frame = 0  # Reset frame index
+
+            # Get the current animation frames
+            images = img_paths[current_animation]
+
+            # Display one frame at a time
+            current_time = time.time()
+            if current_time - last_frame_time >= frame_delay:
+                display_frame(images[current_frame], disp)
+                current_frame = (current_frame + 1) % len(images)  # Loop frames
+                last_frame_time = current_time
                     
     except KeyboardInterrupt:
         print("exiting")
