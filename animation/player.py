@@ -62,7 +62,8 @@ def main():
                     'sitting_lick',
                     'scared',
                     'paw_tap',
-                    'sitting_tail']
+                    'sitting_tail',
+                    'face']
     img_paths = {}
     total_loaded = 0
     for folder in folder_names:
@@ -98,8 +99,8 @@ def main():
 
     
         display_frame(images[current_frame], disp)
-        if (current_animation!="sitting_tail") and (current_frame >= len(images) - 1):
-            current_animation = "sitting_tail"
+        if (current_animation!="face") and (current_frame >= len(images) - 1):
+            current_animation = "face"
             current_frame = 0
         else:
             current_frame = (current_frame + 1) % len(images)  # Loop frames
