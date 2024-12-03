@@ -126,11 +126,11 @@ def main():
             current_frame = (current_frame + 1) % len(images)  # Loop frames
         end = time.time()
         time_taken = end - now
-        print(f"{main_animation}: loop time {time_taken}")
-        if main_animation == "face/static":
-            time.sleep(face_delay)
-        else:
-            time.sleep(sit_delay)
+        # print(f"{main_animation}: loop time {time_taken}")
+        # if main_animation == "face/static":
+        #     time.sleep(face_delay)
+        # else:
+        #     time.sleep(sit_delay)
         if not buttons["A"].value and not buttons["B"].value and not buttons["C"].value:
             break
         
