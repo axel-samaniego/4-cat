@@ -42,9 +42,7 @@ def main():
     
     disp.fill(0)
     disp.show()
-    cwd = os.getcwd()
-    ani_folders = glob(cwd + "/animation/*")
-    print(f"ani_folders {ani_folders}")
+
 
     # Set up the screen
     # pygame.display.set_caption("Cat Animation")
@@ -62,22 +60,23 @@ def main():
                         'nose',
                         'static',
                         'whisker']
-    sitting_img_paths = {}
+    img_paths = {}
     total_loaded = 0
     for folder in sitting_folder_names:
         images = glob(cwd + f"/animation/{folder}/*.bmp")
         images.sort()
-        sitting_img_paths[folder] = [Image.open(img_path).convert("1") for img_path in images]
+        img_paths[folder] = [Image.open(img_path).convert("1") for img_path in images]
         total_loaded += len(images)
 
     for folder in face_folder_names:
         images = glob(cwd + f"/animation/face/{folder}/*.bmp")
         images.sort()
-        sitting_img_paths[f"face/{folder}"] = [Image.open(img_path).convert("1") for img_path in images]
+        img_paths[f"face/{folder}"] = [Image.open(img_path).convert("1") for img_path in images]
         total_loaded += len(images)
    
 
     print(f"loaded images: {total_loaded}")
+    print(f"keys: {img_paths.keys()}")
     
     # Initialize state variables
     main_animation = "face/static"
@@ -112,7 +111,7 @@ def main():
                     current_frame = 0
 
         # Get the current animation frames
-        images = sitting_img_paths[current_animation]
+        images = img_paths[current_animation]
 
     
         display_frame(images[current_frame], disp)
