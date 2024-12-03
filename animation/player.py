@@ -86,15 +86,16 @@ def main():
     # Time between frames
     face_delay = 0.001  
     sit_delay = 0.025
-    interval = 10
+    interval = 5
     next_check = time.time() + interval
     
     while True:    
+        now = time.time()
         # If the button is pressed down (transition from high to low)
         # Check buttons and switch animation
         if buttons["C"].value:  
             if (main_animation == "face/static") and time.time()>=next_check:
-                rand_num = np.random.randint(0, 10)
+                rand_num = np.random.randint(0, 5)
                 if rand_num < 4:
                     current_animation = f"face/{face_folder_names[rand_num]}"
                     current_frame = 0
@@ -123,12 +124,16 @@ def main():
             current_frame = 0
         else:
             current_frame = (current_frame + 1) % len(images)  # Loop frames
+        end = time.time()
+        time_taken = end - now
+        print(f"{main_animation}: loop time {time_taken}")
         if main_animation == "face/static":
             time.sleep(face_delay)
         else:
             time.sleep(sit_delay)
         if not buttons["A"].value and not buttons["B"].value and not buttons["C"].value:
             break
+        
     
     disp.poweroff()
 
