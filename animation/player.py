@@ -42,7 +42,8 @@ def main():
     
     disp.fill(0)
     disp.show()
-
+    cwd = os.getcwd()
+   
 
     # Set up the screen
     # pygame.display.set_caption("Cat Animation")
@@ -76,7 +77,7 @@ def main():
    
 
     print(f"loaded images: {total_loaded}")
-    print(f"keys: {img_paths.keys()}")
+    print(f"image keys: {img_paths.keys()}")
     
     # Initialize state variables
     main_animation = "face/static"
