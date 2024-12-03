@@ -84,8 +84,8 @@ def main():
     current_animation = main_animation
     current_frame = 0
     # Time between frames
-    face_delay = 0.01  
-    sit_delay = 0.05
+    face_delay = 0.001  
+    sit_delay = 0.025
     interval = 10
     next_check = time.time() + interval
     
