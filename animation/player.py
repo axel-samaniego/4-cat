@@ -94,7 +94,7 @@ def main():
             if (main_animation == "face/static") and time.time()>=next_check:
                 rand_num = np.random.randint(0, 10)
                 if rand_num < 4:
-                    current_animation = face_folder_names[rand_num]
+                    current_animation = f"face/{face_folder_names[rand_num]}"
                     current_frame = 0
                 next_check = time.time() + interval
             pass
