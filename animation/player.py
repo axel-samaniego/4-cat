@@ -9,19 +9,14 @@ from digitalio import DigitalInOut, Direction, Pull
 import numpy as np
 from controller import Controller
 
-def display_images(images, disp):
-    
-    for frame_image in images:
-        disp.fill(0)
-        disp.image(frame_image)
-        disp.show()
-        time.sleep(0.1)
+
 
 def display_frame(frame_image, disp):
     disp.fill(0)
     disp.image(frame_image)
     disp.show()
 
+    
 
 def main():
       
@@ -56,55 +51,77 @@ def main():
 
     # Load images
     # images = [pygame.image.load(img) for img in sorted(glob(cwd + "/animation/sitting_tail/" + "/*.bmp"))]
-    folder_names = ['running',
-                    'attack',
-                    'sleeping',
-                    'sitting_lick',
-                    'scared',
-                    'paw_tap',
-                    'sitting_tail',
-                    'face']
-    img_paths = {}
+    sitting_folder_names = ['running',
+                            'attack',
+                            'sleeping',
+                            'sitting_lick',
+                            'scared',
+                            'paw_tap',
+                            'sitting_tail']
+    face_folder_names = ['blink',
+                        'nose',
+                        'static',
+                        'whisker']
+    sitting_img_paths = {}
     total_loaded = 0
-    for folder in folder_names:
+    for folder in sitting_folder_names:
         images = glob(cwd + f"/animation/{folder}/*.bmp")
         images.sort()
-        img_paths[folder] = [Image.open(img_path).convert("1") for img_path in images]
+        sitting_img_paths[folder] = [Image.open(img_path).convert("1") for img_path in images]
+        total_loaded += len(images)
+
+    for folder in face_folder_names:
+        images = glob(cwd + f"/animation/face/{folder}/*.bmp")
+        images.sort()
+        sitting_img_paths[f"face/{folder}"] = [Image.open(img_path).convert("1") for img_path in images]
         total_loaded += len(images)
    
 
     print(f"loaded images: {total_loaded}")
     
-    # Animation loop
-    running = True
     # Initialize state variables
-    current_animation = "sitting_tail"
+    main_animation = "face/static"
+    current_animation = main_animation
     current_frame = 0
-    frame_delay = 0.1  # Time between frames
-    last_frame_time = time.time()
-
+    frame_delay = 0.075  # Time between frames
+    interval = 10
+    next_check = time.time() + interval
     
-    while running:    
+    while True:    
         # If the button is pressed down (transition from high to low)
         # Check buttons and switch animation
-        if buttons["A"].value:  
+        if buttons["C"].value:  
+            if (main_animation == "face/static") and time.time()>=next_check:
+                rand_num = np.random.randint(0, 10)
+                if rand_num < 4:
+                    current_animation = face_folder_names[rand_num]
+                    current_frame = 0
+                next_check = time.time() + interval
             pass
-        else:  # Button "A" pressed
-            if current_animation != "scared":
-                current_animation = "scared"
+        else:  # Button "C" pressed
+            if main_animation != "sitting_tail":
+                main_animation = "sitting_tail"
                 current_frame = 0  # Reset frame index
+        
+        if main_animation == "sitting_tail":
+            if buttons["A"].value:
+                pass
+            else:
+                if current_animation!="scared":
+                    current_animation = "scared"
+                    current_frame = 0
 
         # Get the current animation frames
-        images = img_paths[current_animation]
+        images = sitting_img_paths[current_animation]
 
     
         display_frame(images[current_frame], disp)
-        if (current_animation!="face") and (current_frame >= len(images) - 1):
-            current_animation = "face"
+        if (current_animation!=main_animation) and (current_frame >= len(images) - 1):
+            current_animation = main_animation
             current_frame = 0
         else:
             current_frame = (current_frame + 1) % len(images)  # Loop frames
-        time.sleep(0.075)
+        time.sleep(frame_delay)
         if not buttons["A"].value and not buttons["B"].value and not buttons["C"].value:
             break
     
