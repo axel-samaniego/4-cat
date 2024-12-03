@@ -72,7 +72,7 @@ def main():
     for folder in face_folder_names:
         images = glob(cwd + f"/animation/face/{folder}/*.bmp")
         images.sort()
-        img_paths[f"face/{folder}"] = [Image.open(img_path).convert("1") for img_path in images]
+        img_paths[f"face/{folder}"] = [Image.open(img_path).convert("1") for img_path in images if int(img_path.split("tile")[-1].split('.')[0])%2==0]
         total_loaded += len(images)
    
 
@@ -95,7 +95,7 @@ def main():
         # Check buttons and switch animation
         if buttons["C"].value:  
             if (main_animation == "face/static") and time.time()>=next_check:
-                rand_num = np.random.randint(0, 5)
+                rand_num = np.random.randint(0, 10)
                 if rand_num < 4:
                     current_animation = f"face/{face_folder_names[rand_num]}"
                     current_frame = 0
