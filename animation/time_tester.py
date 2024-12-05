@@ -25,7 +25,11 @@ def main():
     for folder in face_folder_names:
         images = glob(cwd + f"/animation/face/{folder}/*.bmp")
         images.sort()
-        img_paths[f"face/{folder}"] = [Image.open(img_path).convert("1") for img_path in images]
+        for img_path in images:
+            img_paths[f"face/{folder}"] = []
+            with open(img_path, "rb") as f:
+                img_bytes = f.read()
+                img = Image.open(img_path).convert("1")
         total_loaded += len(images)
     
     main_animation = "face/static"
@@ -51,10 +55,9 @@ def main():
             next_check = time.time() + interval
 
         images = img_paths[current_animation]
-        if current_animation!="face/static":
-            disp.fill(0)
-            disp.image(images[current_frame])
-            disp.show()
+        disp.fill(0)
+        disp.image(images[current_frame])
+        disp.show()
 
        
         if (current_animation!=main_animation) and (current_frame >= len(images) - 1):

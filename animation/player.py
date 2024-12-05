@@ -105,14 +105,43 @@ def main():
                 main_animation = "sitting_tail"
                 current_frame = 0  # Reset frame index
         
-        if main_animation == "sitting_tail":
+        if main_animation != "face/static":
             if buttons["A"].value:
                 pass
             else:
                 if current_animation!="scared":
                     current_animation = "scared"
                     current_frame = 0
-
+            if buttons["U"].value:
+                pass
+            else:
+                if current_animation!="attack":
+                    current_animation = "attack"
+                    current_frame = 0
+            if buttons["B"].value:
+                pass
+            else:
+                if current_animation!="sitting_lick":
+                    current_animation = "sitting_lick"
+                    current_frame = 0
+            if buttons["R"].value:
+                pass
+            else:
+                if current_animation!="running":
+                    current_animation = "running"
+                    current_frame = 0
+            if buttons["D"].value:
+                pass
+            else:
+                if current_animation!="sleeping":
+                    main_animation = "sleeping"
+                    current_frame = 0
+            if buttons["C"].value:
+                pass
+            else:
+                if current_animation!="face/static":
+                    main_animation = "face/static"
+                    current_frame = 0
         # Get the current animation frames
         images = img_paths[current_animation]
 
