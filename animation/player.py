@@ -7,7 +7,6 @@ import busio
 import board
 from digitalio import DigitalInOut, Direction, Pull
 import numpy as np
-from controller import Controller
 
 
 
