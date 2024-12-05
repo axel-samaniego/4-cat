@@ -93,12 +93,12 @@ def main():
         # If the button is pressed down (transition from high to low)
         # Check buttons and switch animation
         if buttons["C"].value:  
-            if (main_animation == "face/static") and time.time()>=next_check:
+            if (main_animation == "face/static") and now>=next_check:
                 rand_num = np.random.randint(0, 8)
                 if rand_num < 4:
                     current_animation = f"face/{face_folder_names[rand_num]}"
                     current_frame = 0
-                next_check = time.time() + interval
+                next_check = now + interval
             pass
         else:  # Button "C" pressed
             if main_animation != "sitting_tail":
@@ -155,7 +155,7 @@ def main():
             current_frame = (current_frame + 1) % len(images)  # Loop frames
         end = time.time()
         time_taken = end - now
-        # print(f"{main_animation}: loop time {time_taken}")
+        print(f"{main_animation}: loop time {time_taken}")
         # if main_animation == "face/static":
         #     time.sleep(face_delay)
         # else:
