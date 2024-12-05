@@ -63,11 +63,11 @@ def main():
                         'whisker']
     img_paths = {}
     total_loaded = 0
-    # for folder in sitting_folder_names:
-    #     images = glob(cwd + f"/animation/{folder}/*.bmp")
-    #     images.sort()
-    #     img_paths[folder] = [Image.open(img_path).convert("1") for img_path in images]
-    #     total_loaded += len(images)
+    for folder in sitting_folder_names:
+        images = glob(cwd + f"/animation/{folder}/*.bmp")
+        images.sort()
+        img_paths[folder] = [Image.open(img_path).convert("1") for img_path in images]
+        total_loaded += len(images)
 
     for folder in face_folder_names:
         images = glob(cwd + f"/animation/face/{folder}/*.bmp")
@@ -91,34 +91,28 @@ def main():
     
     while True:    
         now = time.time()
-        if (main_animation == "face/static") and time.time()>=next_check:
-            rand_num = np.random.randint(0, 10)
-            if rand_num < 4:
-                current_animation = f"face/{face_folder_names[rand_num]}"
-                current_frame = 0
-            next_check = time.time() + interval
         # If the button is pressed down (transition from high to low)
         # Check buttons and switch animation
-        # if buttons["C"].value:  
-        #     if (main_animation == "face/static") and time.time()>=next_check:
-        #         rand_num = np.random.randint(0, 10)
-        #         if rand_num < 4:
-        #             current_animation = f"face/{face_folder_names[rand_num]}"
-        #             current_frame = 0
-        #         next_check = time.time() + interval
-        #     pass
-        # else:  # Button "C" pressed
-        #     if main_animation != "sitting_tail":
-        #         main_animation = "sitting_tail"
-        #         current_frame = 0  # Reset frame index
+        if buttons["C"].value:  
+            if (main_animation == "face/static") and time.time()>=next_check:
+                rand_num = np.random.randint(0, 10)
+                if rand_num < 4:
+                    current_animation = f"face/{face_folder_names[rand_num]}"
+                    current_frame = 0
+                next_check = time.time() + interval
+            pass
+        else:  # Button "C" pressed
+            if main_animation != "sitting_tail":
+                main_animation = "sitting_tail"
+                current_frame = 0  # Reset frame index
         
-        # if main_animation == "sitting_tail":
-        #     if buttons["A"].value:
-        #         pass
-        #     else:
-        #         if current_animation!="scared":
-        #             current_animation = "scared"
-        #             current_frame = 0
+        if main_animation == "sitting_tail":
+            if buttons["A"].value:
+                pass
+            else:
+                if current_animation!="scared":
+                    current_animation = "scared"
+                    current_frame = 0
 
         # Get the current animation frames
         images = img_paths[current_animation]
@@ -137,7 +131,6 @@ def main():
         #     time.sleep(face_delay)
         # else:
         #     time.sleep(sit_delay)
-        print(f"time taken in loop: {time_taken}")
         if not buttons["A"].value and not buttons["B"].value and not buttons["C"].value:
             break
         
