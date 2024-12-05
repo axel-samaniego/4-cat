@@ -71,7 +71,7 @@ def main():
     for folder in face_folder_names:
         images = glob(cwd + f"/animation/face/{folder}/*.bmp")
         images.sort()
-        img_paths[f"face/{folder}"] = [Image.open(img_path).convert("1") for img_path in images if int(img_path.split("tile")[-1].split('.')[0])%2==0]
+        img_paths[f"face/{folder}"] = [Image.open(img_path).convert("1") for img_path in images]
         total_loaded += len(images)
    
 
