@@ -116,8 +116,9 @@ def main():
         # Get the current animation frames
         images = img_paths[current_animation]
 
-    
-        display_frame(images[current_frame], disp)
+        disp.fill(0)
+        disp.image(images[current_frame])
+        disp.show()
         if (current_animation!=main_animation) and (current_frame >= len(images) - 1):
             current_animation = main_animation
             current_frame = 0
