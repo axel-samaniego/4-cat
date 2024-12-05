@@ -46,6 +46,8 @@ def main():
                 current_animation = f"face/{face_folder_names[rand_num]}"
                 current_frame = 0
             next_check = time.time() + interval
+        images = img_paths[current_animation]
+        
         disp.fill(0)
         disp.image(images[current_frame])
         disp.show()
