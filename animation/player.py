@@ -155,7 +155,7 @@ def main():
             current_frame = (current_frame + 1) % len(images)  # Loop frames
         end = time.time()
         time_taken = end - now
-        print(f"{main_animation}: loop time {time_taken}")
+        # print(f"{main_animation}: loop time {time_taken}")
         # if main_animation == "face/static":
         #     time.sleep(face_delay)
         # else:
