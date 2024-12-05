@@ -95,7 +95,7 @@ def main():
         # Check buttons and switch animation
         if buttons["C"].value:  
             if (main_animation == "face/static") and time.time()>=next_check:
-                rand_num = np.random.randint(0, 10)
+                rand_num = np.random.randint(0, 8)
                 if rand_num < 4:
                     current_animation = f"face/{face_folder_names[rand_num]}"
                     current_frame = 0
