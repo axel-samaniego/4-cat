@@ -13,8 +13,7 @@ def main():
     i2c = busio.I2C(board.SCL, board.SDA)
     disp = adafruit_ssd1306.SSD1306_I2C(128, 64, i2c)
 
-    disp.fill(0)
-    disp.show()
+    
     now = time.time() 
     face_folder_names = ['blink',
                         'nose',
@@ -37,6 +36,9 @@ def main():
     sit_delay = 0.025
     interval = 5
     next_check = time.time() + interval
+    disp.fill(0)
+    disp.image(img_paths["face/static"][0])
+    disp.show()
 
     while True:
         start = time.time()
@@ -47,11 +49,14 @@ def main():
                 current_animation = f"face/{face_folder_names[rand_num]}"
                 current_frame = 0
             next_check = time.time() + interval
-        images = img_paths[current_animation]
 
-        # disp.fill(0)
-        disp.image(images[current_frame])
-        disp.show()
+        images = img_paths[current_animation]
+        if current_animation!="face/static":
+            disp.fill(0)
+            disp.image(images[current_frame])
+            disp.show()
+
+       
         if (current_animation!=main_animation) and (current_frame >= len(images) - 1):
             current_animation = main_animation
             current_frame = 0
