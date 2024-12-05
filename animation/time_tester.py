@@ -40,15 +40,16 @@ def main():
 
     while True:
         start = time.time()
-        if (main_animation == "face/static") and time.time()>=next_check:
+        rand_num = np.random.randint(0, 100)
+        if (main_animation == "face/static") and rand_num>10:
             rand_num = np.random.randint(0, 8)
             if rand_num < 4:
                 current_animation = f"face/{face_folder_names[rand_num]}"
                 current_frame = 0
             next_check = time.time() + interval
         images = img_paths[current_animation]
-        
-        disp.fill(0)
+
+        # disp.fill(0)
         disp.image(images[current_frame])
         disp.show()
         if (current_animation!=main_animation) and (current_frame >= len(images) - 1):
