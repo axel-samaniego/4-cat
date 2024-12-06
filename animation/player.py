@@ -115,9 +115,11 @@ def main():
             if buttons["U"].value:
                 pass
             else:
-                if current_animation!="attack":
+                if main_animation=="sleep":
+                    main_animation == "sitting_tail"
+                elif current_animation!="attack":
                     current_animation = "attack"
-                    current_frame = 0
+                current_frame = 0
             if buttons["B"].value:
                 pass
             else:
