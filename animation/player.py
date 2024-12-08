@@ -94,7 +94,7 @@ def main():
         # Check buttons and switch animation
         if buttons["C"].value:  
             if (main_animation == "face/static") and now>=next_check:
-                rand_num = np.random.randint(0, 12)
+                rand_num = np.random.randint(0, 10)
                 if rand_num < 4:
                     current_animation = f"face/{face_folder_names[rand_num]}"
                     current_frame = 0
@@ -129,18 +129,21 @@ def main():
                 if current_animation!="sitting_lick":
                     current_animation = "sitting_lick"
                     current_frame = 0
+
             if buttons["R"].value:
                 pass
             else:
                 if current_animation!="running":
                     current_animation = "running"
                     current_frame = 0
+
             if buttons["D"].value:
                 pass
             else:
                 if current_animation!="sleeping":
                     main_animation = "sleeping"
                     current_frame = 0
+
             if buttons["C"].value:
                 pass
             else:
